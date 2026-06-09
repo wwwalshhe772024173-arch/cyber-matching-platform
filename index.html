@@ -1,152 +1,29 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة التعهيد والتقييم السيبراني الهجينة</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
-        body { font-family: 'Cairo', sans-serif; }
-        @media print {
-            body * { visibility: hidden; }
-            #print-area, #print-area * { visibility: visible; }
-            #print-area { position: absolute; left: 0; top: 0; width: 100%; text-black; }
-        }
-    </style>
-</head>
-<body class="bg-slate-900 text-slate-100 min-h-screen">
-
-    <header class="bg-slate-800 border-b border-cyan-500/30 p-4 sticky top-0 z-50 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-400">
-                🛡️ منصة التعهيد والتقييم السيبراني الهجينة <span class="text-xs bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/30">V3.0 ENTERPRISE</span>
-            </h1>
-            <div class="bg-slate-900 px-4 py-2 rounded-lg border border-emerald-500/30 flex items-center gap-2">
-                <span class="text-slate-400 text-xs">مسبح أرباح المسؤول 💸:</span>
-                <span id="platform-revenue-pool" class="text-emerald-400 font-bold text-lg">$0</span>
-            </div>
+<div id="print-area" class="hidden p-8 bg-white text-slate-900 space-y-6" style="direction: rtl; text-align: right; background: white; color: #000;">
+        <div style="border-bottom: 3px solid #06b6d4; padding-bottom: 12px; text-align: center; margin-bottom: 20px;">
+            <h1 style="font-size: 24px; font-weight: bold; color: #0f172a; margin: 0;">تقرير المحاكاة الأمنية والتحليل السيبراني الهجين</h1>
+            <p style="font-size: 10px; color: #64748b; font-family: monospace; margin-top: 4px; uppercase;">HYBRID MULTI-AI EVALUATION & THREAT INTELLIGENCE REPORT</p>
         </div>
-    </header>
-
-    <main class="container mx-auto p-6 space-y-8 max-w-6xl">
-        
-        <div class="bg-slate-950 p-3 rounded-xl flex items-center justify-between text-xs border border-cyan-500/20">
-            <span class="text-emerald-400 flex items-center gap-2">🌐 البنية التحتية المستقرة: <span class="text-slate-400">SQLite Cloud Database Connected</span></span>
-            <span class="bg-emerald-500/10 text-emerald-300 px-2 py-0.5 rounded font-mono">System: Secure</span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <section class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
-                <h2 class="text-base font-bold text-cyan-400 border-b border-slate-700 pb-2">🥷 بوابة محاكاة واختبار الاختراقات</h2>
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1">نوع السيناريو المراد محاكاته واختباره:</label>
-                    <input id="scenario-name" type="text" value="Advanced Persistent Threat (APT) Simulation" class="w-full bg-slate-950 border border-slate-700 p-2 rounded text-sm text-slate-200 focus:outline-none focus:border-cyan-500">
-                </div>
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1">سجل الأوامر المنفذة (Terminal Logs):</label>
-                    <textarea id="commands-log" rows="3" class="w-full bg-slate-950 font-mono text-xs text-emerald-400 p-2 rounded border border-slate-700 focus:outline-none focus:border-cyan-500" placeholder="اكتب السجلات هنا... جرب كتابة rm -rf أو C2 connection"></textarea>
-                </div>
-                <button onclick="runAiEvaluation()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 rounded-lg transition-all shadow-md shadow-cyan-600/20">
-                    إرسال للتحليل الفوري بواسطة الـ Multi-AI 🤖
-                </button>
-                <div id="hacker-result" class="hidden bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs space-y-1"></div>
-            </section>
-
-            <section class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 shadow-xl space-y-4">
-                <h2 class="text-base font-bold text-purple-400 border-b border-slate-700 pb-2">🏢 بوابة طرح العقود والميزانيات</h2>
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1">عنوان المشروع التأميني المتقدم:</label>
-                    <input id="job-title" type="text" value="فحص ثغرات وتأمين الأنظمة الحيوية" class="w-full bg-slate-950 border border-slate-700 p-2 rounded text-sm text-slate-200 focus:outline-none focus:border-purple-500">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">الميزانية ($):</label>
-                        <input id="job-budget" type="number" value="20000" class="w-full bg-slate-950 border border-slate-700 p-2 rounded text-sm text-slate-200">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">الكفاءة المطلوبة (%):</label>
-                        <input id="job-min-score" type="number" value="85" class="w-full bg-slate-950 border border-slate-700 p-2 rounded text-sm text-slate-200">
-                    </div>
-                </div>
-                <button onclick="createJob()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 rounded-lg transition-all shadow-md shadow-purple-600/20">
-                    نشر العقد السيبراني فوراً 🚀
-                </button>
-                <div id="client-result" class="hidden bg-slate-950 p-2 rounded text-xs text-purple-300"></div>
-            </section>
-        </div>
-
-        <section class="bg-slate-800/30 p-4 rounded-xl border border-slate-700 space-y-4">
-            <h2 class="text-sm font-bold text-emerald-400">⚙️ محرك المطابقة الذكي وتوزيع الإيرادات المستقرة</h2>
-            <div class="flex gap-4 items-end">
-                <div class="flex-1">
-                    <label class="block text-xs text-slate-400 mb-1">رقم العقد المستهدف في قاعدة البيانات:</label>
-                    <input id="match-job-id" type="number" value="1" class="w-full bg-slate-950 border border-slate-700 p-2 rounded text-xs text-emerald-300 font-bold">
-                </div>
-                <button onclick="triggerCloudMatch()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2 px-4 rounded-lg text-xs transition-all shadow-lg shadow-emerald-500/10">
-                    تشغيل المطابقة وتوليد الأرباح آلياً 💸
-                </button>
-            </div>
-        </section>
-
-        <section class="bg-slate-950 p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h2 class="text-lg font-black text-amber-400 flex items-center gap-2">📊 لوحة تحكم المسؤول ومراقبة العمليات الحية (قاعدة بيانات صلبة)</h2>
-                <button onclick="fetchHistory()" class="bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs px-3 py-1.5 rounded border border-slate-700 transition-all">
-                    🔄 تحديث سجل العمليات حياً
-                </button>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-right text-xs text-slate-300">
-                    <thead class="bg-slate-900 text-slate-400 uppercase border-b border-slate-800">
-                        <tr>
-                            <th class="p-3">رقم الفحص</th>
-                            <th class="p-3">نوع الاختراق المصنف</th>
-                            <th class="p-3">الهدف والنية المرصودة للمخترق</th>
-                            <th class="p-3">زمن المعالجة</th>
-                            <th class="p-3">نقاط الكفاءة</th>
-                            <th class="p-3 text-center">التحكم والطباعة</th>
-                        </tr>
-                    </thead>
-                    <tbody id="history-table-body">
-                        <tr>
-                            <td colspan="6" class="p-4 text-center text-slate-500">لا توجد عمليات فحص مسجلة حالياً. قم بإجراء فحص بالأعلى ليظهر هنا فوراً!</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
-
-    <div id="print-area" class="hidden p-8 bg-white text-slate-900 space-y-6">
-        <div style="border-bottom: 3px solid #06b6d4; padding-bottom: 12px; text-align: center;">
-            <h1 style="font-size: 24px; font-weight: bold; color: #0f172a;">تقرير المحاكاة الأمنية والتحليل السيبراني الهجين</h1>
-            <p style="font-size: 10px; color: #64748b; font-family: monospace; margin-top: 4px;">HYBRID MULTI-AI EVALUATION & THREAT INTELLIGENCE REPORT</p>
-        </div>
-        <div style="font-size: 12px; background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+        <div style="font-size: 12px; background: #f8fafc; padding: 12px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
             <div><strong>المسؤول الفني للمنصة:</strong> wwwalshhe772024173@gmail.com</div>
             <div><strong>مستودع الكود المربوط:</strong> github.com/wwwalshhe772024173-arch</div>
-            <div><strong>رابط البنية التحتية:</strong> cyber-matching-platform.vercel.app</div>
+            <div><strong>رابط البنية التحتية الحية:</strong> cyber-matching-platform.vercel.app</div>
         </div>
-        <div style="border-right: 4px solid #06b6d4; padding-right: 12px;">
-            <h3 style="font-size: 16px; font-weight: bold; color: #0f172a;">🔍 تفاصيل رصد وتحليل التهديد:</h3>
-            <p id="print-type" style="margin-top: 4px; font-size: 13px; font-weight: bold; color: #ef4444;"></p>
-            <p id="print-time" style="font-size: 12px; color: #475569;"></p>
+        <div style="border-right: 4px solid #06b6d4; padding-right: 12px; margin-bottom: 20px;">
+            <h3 style="font-size: 16px; font-weight: bold; color: #0f172a; margin: 0;">🔍 تفاصيل رصد وتحليل التهديد:</h3>
+            <p id="print-type" style="margin-top: 6px; font-size: 13px; font-weight: bold; color: #ef4444;"></p>
+            <p id="print-time" style="font-size: 12px; color: #475569; margin-top: 2px;"></p>
         </div>
-        <div style="background: #f1f5f9; padding: 12px; border-radius: 6px; font-size: 12px;">
+        <div style="background: #f1f5f9; padding: 12px; border-radius: 6px; font-size: 12px; margin-bottom: 20px;">
             <strong>🎯 نية وهدف المهاجم (Attacker Intent):</strong>
-            <p id="print-intent" style="margin-top: 4px; color: #334155;"></p>
+            <p id="print-intent" style="margin-top: 4px; color: #334155; margin-bottom: 0;"></p>
         </div>
-        <div style="background: #0f172a; color: #34d399; padding: 12px; border-radius: 6px; font-family: monospace; font-size: 11px; direction: ltr; text-align: left;">
+        <div style="background: #0f172a; color: #34d399; padding: 12px; border-radius: 6px; font-family: monospace; font-size: 11px; direction: ltr; text-align: left; margin-bottom: 20px;">
             <div style="color: #94a3b8; font-size: 9px; margin-bottom: 4px; font-family: sans-serif;">INPUT TERMINAL LOGS:</div>
             <span id="print-logs"></span>
         </div>
-        <div style="border: 1px solid #e2e8f0; padding: 12px; border-radius: 6px; font-size: 12px; background: #fff;">
+        <div style="border: 1px solid #e2e8f0; padding: 12px; border-radius: 6px; font-size: 12px; background: #fff; margin-bottom: 20px;">
             <strong style="color: #0284c7;">🤖 حكم وتقارير العقول الاصطناعية الهجينة (Multi-AI Core Verdict):</strong>
-            <p id="print-report" style="margin-top: 6px; white-space: pre-line; color: #1e293b; line-height: 1.6;"></p>
+            <p id="print-report" style="margin-top: 6px; white-space: pre-line; color: #1e293b; line-height: 1.6; margin-bottom: 0;"></p>
         </div>
         <div style="text-align: center; font-size: 14px; font-weight: bold; background: #f0fdf4; color: #16a34a; padding: 8px; border-radius: 6px; border: 1px dashed #22c55e;">
             نقاط كفاءة الخبير النهائية المحسوبة آلياً: <span id="print-score" style="font-size: 18px;"></span> / 100
@@ -157,11 +34,10 @@
         const CLOUD_API_URL = "https://cyber-matching-platform-production.up.railway.app";
         let localHistory = [];
 
-        // دالة لعرض الإشعارات الاحترافية والمنبثقة الملونة
         function showNotification(text, type = "success") {
-            let bgColor = "linear-gradient(to right, #00b4db, #0083b0)"; // أزرق افتراضي
-            if (type === "warning") bgColor = "linear-gradient(to right, #f857a6, #ff5858)"; // أحمر تحذيري
-            if (type === "money") bgColor = "linear-gradient(to right, #11998e, #38ef7d)"; // أخضر للأرباح
+            let bgColor = "linear-gradient(to right, #00b4db, #0083b0)";
+            if (type === "warning") bgColor = "linear-gradient(to right, #f857a6, #ff5858)";
+            if (type === "money") bgColor = "linear-gradient(to right, #11998e, #38ef7d)";
 
             Toastify({
                 text: text,
@@ -193,14 +69,13 @@
                     <div class='text-slate-300'>زمن الفحص: <span class='text-cyan-400 font-bold'>${data.execution_time} ثانية</span></div>
                 `;
                 
-                // إطلاق إشعار منبثق فوري ومبهر
                 if(data.score <= 5) {
                     showNotification("🚨 تم كشف محاولة تخريب! قام الدرع الآلي بحظر الهجوم وحماية الخادم السحابي.", "warning");
                 } else {
                     showNotification(`🔍 تم رصد هجوم بنجاح من نوع: ${data.threat_type} بكفاءة ${data.score}/100`, "success");
                 }
                 
-                fetchHistory(); 
+                await fetchHistory(); 
             } catch (err) {
                 resultDiv.innerHTML = "<p class='text-red-400'>❌ فشل الاتصال بالسيرفر السحابي أو تم حظر الطلب.</p>";
                 showNotification("❌ خطأ في الاتصال بالشبكة السحابية", "warning");
@@ -213,7 +88,7 @@
                 const data = await response.json();
                 localHistory = data;
                 const tbody = document.getElementById('history-table-body');
-                if (data.length === 0) {
+                if (!data || data.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-500">لا توجد سجلات في قاعدة البيانات حالياً.</td></tr>`;
                     return;
                 }
@@ -225,7 +100,7 @@
                         <td class="p-3 font-mono text-cyan-400">${item.execution_time} ثانية</td>
                         <td class="p-3 font-bold text-emerald-400">${item.score}/100</td>
                         <td class="p-3 text-center">
-                            <button onclick="printReport(${index})" class="bg-amber-500/10 hover:bg-amber-500 hover:text-slate-950 text-amber-400 px-3 py-1 rounded border border-amber-500/30 font-bold transition-all">
+                            <button onclick="printReport(${index})" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1 rounded border border-amber-500/30 text-xs transition-all shadow-md">
                                 🖨️ طباعة وتنزيل PDF
                             </button>
                         </td>
@@ -236,21 +111,32 @@
             }
         }
 
+        // دالة الطباعة السحرية المصلحة تماماً للـ PDF الحقيقي
         function printReport(index) {
             const item = localHistory[index];
-            if(!item) return;
+            if(!item) {
+                alert("لم يتم العثور على بيانات هذا السجل بعد، يرجى تحديث الصفحة.");
+                return;
+            }
             
+            // حقن البيانات الحقيقية داخل منطقة الطباعة فوراً قبل الاستدعاء
             document.getElementById('print-type').innerText = `تصنيف التهديد المخترق: ${item.threat_type}`;
-            document.getElementById('print-time').innerText = `زمن المعالجة والتحليل الدائم: ${item.execution_time} ثانية`;
+            document.getElementById('print-time').innerText = `زمن المعالجة والتحليل الدائم: ${item.execution_time} ثانية عبر السحاب`;
             document.getElementById('print-intent').innerText = item.intent;
             document.getElementById('print-logs').innerText = item.logs;
             document.getElementById('print-report').innerText = item.report;
             document.getElementById('print-score').innerText = item.score;
             
-            const printArea = document.getElementById('print-area');
-            printArea.classList.remove('hidden');
+            // استبدال محتوى الصفحة مؤقتاً بالتقرير لضمان التقاط المتصفح له بدقة 100%
+            const originalContent = document.body.innerHTML;
+            const printContent = document.getElementById('print-area').innerHTML;
+            
+            document.body.innerHTML = `<div style="background:white; color:black; padding:20px; direction:rtl;">${printContent}</div>`;
             window.print();
-            printArea.classList.add('hidden');
+            
+            // إعادة الموقع لطبيعته فوراً بعد انتهاء الطباعة أو الإلغاء
+            document.body.innerHTML = originalContent;
+            window.location.reload(); // إعادة إنعاش سريعة لاستعادة الروابط والأزرار الحية
         }
 
         async function createJob() {
@@ -280,7 +166,6 @@
                 const response = await fetch(`${CLOUD_API_URL}/match/${jobId}`);
                 const data = await response.json();
                 document.getElementById('platform-revenue-pool').innerText = data.total_revenue_pool;
-                // إطلاق إشعار مالي أخضر مبهر
                 showNotification(`💸 إنجاز مالي! تمت المطابقة واحتجزت المنصة عمولتها: ${data.platform_commission_earned}`, "money");
             } catch (err) { 
                 showNotification("❌ فشل العثور على العقد للمطابقة", "warning");
@@ -289,5 +174,3 @@
 
         window.onload = fetchHistory;
     </script>
-</body>
-</html>
